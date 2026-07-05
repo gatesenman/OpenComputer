@@ -1,0 +1,369 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenComputer Desktop</title>
+<link rel="icon" href="/static/icon.png" type="image/png">
+<link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+
+<div id="app">
+  <!-- Sidebar -->
+  <aside id="sidebar">
+    <div class="logo-area">
+      <img src="/static/icon.png" alt="icon" class="logo-icon">
+      <div class="logo-text">
+        <div class="logo-title">OpenComputer</div>
+        <div class="logo-sub">端到端桌面客户端</div>
+      </div>
+    </div>
+    <div class="nav-sep"></div>
+    <nav id="nav">
+      <a href="#" data-page="dashboard" class="nav-item active"><span class="ni">◉</span> 首页</a>
+      <a href="#" data-page="setup" class="nav-item"><span class="ni">⚙</span> 环境安装</a>
+      <a href="#" data-page="settings" class="nav-item"><span class="ni">⊙</span> 设置</a>
+      <div class="nav-sep"></div>
+      <a href="#" data-page="verifiers" class="nav-item"><span class="ni">☑</span> 验证器管理</a>
+      <a href="#" data-page="smoke" class="nav-item"><span class="ni">⚡</span> Smoke 测试</a>
+      <a href="#" data-page="taskgen" class="nav-item"><span class="ni">✦</span> 任务生成</a>
+      <a href="#" data-page="tasks" class="nav-item"><span class="ni">≡</span> 任务浏览</a>
+      <div class="nav-sep"></div>
+      <a href="#" data-page="eval" class="nav-item"><span class="ni">▶</span> 运行评估</a>
+      <a href="#" data-page="rerun" class="nav-item"><span class="ni">⟲</span> 重新评估</a>
+      <a href="#" data-page="results" class="nav-item"><span class="ni">◫</span> 评估结果</a>
+      <div class="nav-sep"></div>
+      <a href="#" data-page="repair" class="nav-item"><span class="ni">⟳</span> 修复循环</a>
+      <a href="#" data-page="sandbox" class="nav-item"><span class="ni">◻</span> 交互沙盒</a>
+      <a href="#" data-page="cleanup" class="nav-item"><span class="ni">✕</span> 资源清理</a>
+    </nav>
+    <div class="sidebar-footer">v3.1.0</div>
+  </aside>
+
+  <!-- Main Content -->
+  <main id="content">
+    <!-- Each page is a section, shown/hidden by JS -->
+
+    <!-- ===== Dashboard ===== -->
+    <section id="page-dashboard" class="page active">
+      <h1 class="page-title">OpenComputer 桌面端</h1>
+      <p class="page-subtitle">可验证的软件世界 — 面向计算机使用代理的合成环境框架</p>
+      <div class="stat-cards" id="stat-cards"></div>
+      <div class="card guide-card">
+        <h2>端到端使用流程</h2>
+        <p class="guide-hint">按照左侧导航栏从上到下的顺序，即可走完整个评估流程。</p>
+        <div class="flow-steps">
+          <div class="flow-step"><span class="step-num">1</span><b>环境安装</b> — 安装依赖、创建配置、构建沙盒</div>
+          <div class="flow-step alt"><span class="step-num">2</span><b>设置</b> — API 密钥、运行后端、Docker、评估参数</div>
+          <div class="flow-step"><span class="step-num">3</span><b>验证器管理</b> — 查看 33 个应用验证器的代码和文档</div>
+          <div class="flow-step alt"><span class="step-num">4</span><b>Smoke 测试</b> — 在真实沙盒中验证验证器端点</div>
+          <div class="flow-step"><span class="step-num">5</span><b>任务生成</b> — 查看流水线产物（提案→评估→最终任务）</div>
+          <div class="flow-step alt"><span class="step-num">6</span><b>任务浏览</b> — 搜索/筛选 900+ 评估任务</div>
+          <div class="flow-step"><span class="step-num">7</span><b>运行评估</b> — 选择应用/模型/参数，一键启动</div>
+          <div class="flow-step alt"><span class="step-num">8</span><b>重新评估</b> — 用不同模型重跑，对比表现</div>
+          <div class="flow-step"><span class="step-num">9</span><b>评估结果</b> — 查看得分/轨迹/截图，导出报告</div>
+          <div class="flow-step alt"><span class="step-num">10-12</span><b>修复 · 沙盒 · 清理</b> — 可选调试维护工具</div>
+        </div>
+        <div class="info-cols">
+          <div class="info-col">
+            <h3>支持的应用（33个）</h3>
+            <p><b class="tag teal">浏览器</b> Chrome · Firefox · Brave</p>
+            <p><b class="tag teal">办公</b> LibreOffice 全套 · gedit · galculator · Obsidian · Zotero</p>
+            <p><b class="tag teal">图形</b> GIMP · Inkscape · Krita · darktable · draw.io</p>
+            <p><b class="tag teal">3D</b> FreeCAD · CloudCompare · RenderDoc</p>
+            <p><b class="tag teal">媒体</b> VLC · OBS · Kdenlive · Audacity · Shotcut · MuseScore</p>
+            <p><b class="tag teal">开发</b> VS Code · Eclipse · Godot 4</p>
+          </div>
+          <div class="info-col">
+            <h3>支持的 AI 模型（30+）</h3>
+            <p><b class="tag blue">Claude</b> sonnet-4-6 · opus-4</p>
+            <p><b class="tag blue">GPT</b> 5.4 · 5 · chatgpt</p>
+            <p><b class="tag blue">Gemini</b> 3-flash</p>
+            <p><b class="tag blue">Kimi</b> k2.6 · k2.5</p>
+            <p><b class="tag blue">Qwen</b> 3-vl · 3.5</p>
+            <p><b class="tag blue">More</b> EvoCUA · Mano · OpenCUA · Dart · GUI-Owl · Holo-3.1</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Setup ===== -->
+    <section id="page-setup" class="page">
+      <h1 class="page-title">环境安装与初始化</h1>
+      <p class="page-subtitle">按步骤完成环境配置。每步可单独执行，绿色=已完成，红色=需处理。</p>
+      <div id="setup-steps"></div>
+      <div class="log-box" id="setup-log"></div>
+    </section>
+
+    <!-- ===== Settings ===== -->
+    <section id="page-settings" class="page">
+      <h1 class="page-title">设置</h1>
+      <p class="page-subtitle">配置所有运行参数。修改后点击底部「保存设置」按钮写入 .env 文件。</p>
+      <div class="tabs" id="settings-tabs">
+        <button class="tab active" data-tab="api">API 密钥</button>
+        <button class="tab" data-tab="backend">运行后端</button>
+        <button class="tab" data-tab="docker">Docker 配置</button>
+        <button class="tab" data-tab="eval_params">评估参数</button>
+        <button class="tab" data-tab="smoke_cfg">Smoke 测试</button>
+        <button class="tab" data-tab="aws">AWS 云</button>
+        <button class="tab" data-tab="tencent">腾讯云</button>
+        <button class="tab" data-tab="advanced">高级设置</button>
+      </div>
+      <div class="tab-content card" id="settings-content"></div>
+      <div class="settings-actions">
+        <button class="btn secondary" onclick="Settings.reset()">重置</button>
+        <button class="btn primary" onclick="Settings.save()">保存设置</button>
+      </div>
+    </section>
+
+    <!-- ===== Verifiers ===== -->
+    <section id="page-verifiers" class="page">
+      <h1 class="page-title">验证器管理</h1>
+      <p class="page-subtitle">查看、测试所有应用验证器。验证器用于判定 AI 代理是否正确完成了任务。</p>
+      <div class="split-layout">
+        <div class="split-left">
+          <div class="list-box" id="verifier-list"></div>
+          <button class="btn primary mt-8" id="btn-run-verifier-test" onclick="Verifiers.runTest()">运行测试</button>
+        </div>
+        <div class="split-right">
+          <div class="tabs" id="verifier-tabs">
+            <button class="tab active" data-vtab="readme">文档 (README)</button>
+            <button class="tab" data-vtab="code">验证器代码</button>
+            <button class="tab" data-vtab="testmd">测试计划 (Test.md)</button>
+            <button class="tab" data-vtab="output">测试输出</button>
+          </div>
+          <div class="code-box" id="verifier-content"></div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Smoke ===== -->
+    <section id="page-smoke" class="page">
+      <h1 class="page-title">Smoke 测试</h1>
+      <p class="page-subtitle">验证器冒烟测试：在真实沙盒中运行简单任务，确认验证器端点正常工作。</p>
+      <div class="card config-card">
+        <div class="form-grid">
+          <label>应用:</label><select id="smoke-app"></select>
+          <label>最大任务数:</label><input type="number" id="smoke-max-tasks" value="20" min="1" max="50">
+          <label></label><label class="checkbox-label"><input type="checkbox" id="smoke-gen-only"> 仅生成（不运行）</label>
+          <label></label><label class="checkbox-label"><input type="checkbox" id="smoke-run-only"> 仅运行（已有任务）</label>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn success" onclick="Smoke.start()">开始 Smoke 测试</button>
+        <button class="btn danger" onclick="Smoke.stop()">停止</button>
+        <button class="btn secondary" onclick="Smoke.viewReport()">查看最新报告</button>
+      </div>
+      <div class="log-box" id="smoke-log"></div>
+      <div class="card" id="smoke-report" style="display:none"></div>
+    </section>
+
+    <!-- ===== Task Gen ===== -->
+    <section id="page-taskgen" class="page">
+      <h1 class="page-title">任务生成流水线</h1>
+      <p class="page-subtitle">查看任务生成流水线的各阶段产物：提案→评估→最终任务。</p>
+      <div class="form-inline">
+        <label>选择应用:</label>
+        <select id="taskgen-app" style="min-width:200px"></select>
+        <button class="btn secondary" onclick="TaskGen.refresh()">刷新</button>
+        <button class="btn primary" onclick="TaskGen.viewLessons()">查看 LESSONS.md</button>
+      </div>
+      <div class="card" id="taskgen-content">
+        <table class="data-table" id="taskgen-table">
+          <thead><tr><th>ID</th><th>难度</th><th>复杂度</th><th>目标/描述</th></tr></thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- ===== Tasks Browser ===== -->
+    <section id="page-tasks" class="page">
+      <h1 class="page-title">任务浏览器</h1>
+      <p class="page-subtitle">浏览所有已生成的评估任务。点击任务查看详细信息。</p>
+      <div class="form-inline">
+        <label>应用筛选:</label><select id="tasks-app-filter"><option value="">全部</option></select>
+        <label>搜索:</label><input type="text" id="tasks-search" placeholder="输入关键词搜索任务...">
+        <span id="tasks-count" class="badge"></span>
+      </div>
+      <div class="split-layout">
+        <div class="split-left" style="flex:3">
+          <table class="data-table" id="tasks-table">
+            <thead><tr><th>任务 ID</th><th>应用</th><th>难度</th><th>复杂度</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="split-right" style="flex:2">
+          <div class="card" id="task-detail">
+            <p class="placeholder-text">点击左侧任务查看详情...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Eval ===== -->
+    <section id="page-eval" class="page">
+      <h1 class="page-title">运行评估</h1>
+      <p class="page-subtitle">选择应用、模型和参数，一键启动评估任务。运行日志将实时显示在下方。</p>
+      <div class="config-grid">
+        <div class="card config-card">
+          <h3 class="section-title teal">基本配置</h3>
+          <div class="form-grid">
+            <label>应用:</label><select id="eval-app"><option>全部应用</option></select>
+            <label>任务:</label><select id="eval-task"><option>全部任务</option></select>
+            <label>模型:</label><select id="eval-model"></select>
+            <label>后端:</label><select id="eval-backend"><option>e2b</option><option>docker</option><option>remote_docker</option></select>
+          </div>
+        </div>
+        <div class="card config-card">
+          <h3 class="section-title teal">运行参数</h3>
+          <div class="form-grid">
+            <label>最大步数:</label><input type="number" id="eval-max-iter" value="100" min="1" max="500">
+            <label>超时时间:</label><input type="number" id="eval-timeout" value="3600" min="60" max="7200">
+            <label>并行数:</label><input type="number" id="eval-parallel" value="1" min="1" max="32">
+          </div>
+        </div>
+        <div class="card config-card">
+          <h3 class="section-title teal">高级选项</h3>
+          <div class="form-grid">
+            <label>自定义端点:</label><input type="text" id="eval-endpoint" placeholder="http://localhost:8001/v1">
+            <label></label><label class="checkbox-label"><input type="checkbox" id="eval-keep-alive"> 保持沙盒存活</label>
+          </div>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn success" onclick="Eval.start()">开始评估</button>
+        <button class="btn danger" onclick="Eval.stop()">停止</button>
+        <button class="btn secondary" onclick="Eval.clearLog()">清空日志</button>
+      </div>
+      <div class="log-box" id="eval-log"></div>
+    </section>
+
+    <!-- ===== Rerun ===== -->
+    <section id="page-rerun" class="page">
+      <h1 class="page-title">重新评估</h1>
+      <p class="page-subtitle">从已有的评估运行中选择任务，用不同的模型重新运行。</p>
+      <div class="config-grid">
+        <div class="card config-card">
+          <h3 class="section-title teal">来源配置</h3>
+          <div class="form-grid">
+            <label>源运行:</label><select id="rerun-source"><option>暂无评估记录</option></select>
+            <label>新模型:</label><select id="rerun-model"></select>
+          </div>
+        </div>
+        <div class="card config-card">
+          <h3 class="section-title teal">运行参数</h3>
+          <div class="form-grid">
+            <label>最大步数:</label><input type="number" id="rerun-max-iter" value="100">
+            <label>超时时间:</label><input type="number" id="rerun-timeout" value="3600">
+          </div>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn success" onclick="Rerun.start()">开始重新评估</button>
+        <button class="btn danger" onclick="Rerun.stop()">停止</button>
+      </div>
+      <div class="log-box" id="rerun-log"></div>
+    </section>
+
+    <!-- ===== Results ===== -->
+    <section id="page-results" class="page">
+      <h1 class="page-title">评估结果</h1>
+      <p class="page-subtitle">查看历史评估运行的结果，包括轨迹、截图和评分报告。支持导出 CSV/JSON。</p>
+      <div class="form-inline">
+        <label>选择运行:</label><select id="results-run"><option>暂无评估记录</option></select>
+        <button class="btn primary" onclick="Results.load()">刷新</button>
+        <button class="btn secondary" onclick="Results.exportCSV()">导出 CSV</button>
+        <button class="btn secondary" onclick="Results.exportJSON()">导出 JSON</button>
+      </div>
+      <div class="split-layout">
+        <div class="split-left" style="flex:3">
+          <table class="data-table" id="results-table">
+            <thead><tr><th>任务 ID</th><th>应用</th><th>模型</th><th>得分</th><th>步数</th><th>状态</th></tr></thead>
+            <tbody></tbody>
+          </table>
+        </div>
+        <div class="split-right" style="flex:2">
+          <div class="card" id="result-detail">
+            <p class="placeholder-text">点击左侧结果查看详情...</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== Repair ===== -->
+    <section id="page-repair" class="page">
+      <h1 class="page-title">修复循环</h1>
+      <p class="page-subtitle">对已完成的评估任务运行修复循环：代理→LLM 评判→验证器对比→自动修复。</p>
+      <div class="config-grid">
+        <div class="card config-card">
+          <h3 class="section-title teal">修复配置</h3>
+          <div class="form-grid">
+            <label>应用:</label><select id="repair-app"></select>
+            <label>任务:</label><select id="repair-task"></select>
+            <label>最大轮数:</label><input type="number" id="repair-max-rounds" value="3" min="1" max="10">
+          </div>
+        </div>
+        <div class="card config-card">
+          <h3 class="section-title teal">修复历史</h3>
+          <div id="repair-history" class="list-box"></div>
+          <button class="btn secondary mt-8" onclick="Repair.loadHistory()">刷新历史</button>
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn success" onclick="Repair.start()">开始修复</button>
+        <button class="btn danger" onclick="Repair.stop()">停止</button>
+      </div>
+      <div class="log-box" id="repair-log"></div>
+    </section>
+
+    <!-- ===== Sandbox ===== -->
+    <section id="page-sandbox" class="page">
+      <h1 class="page-title">交互式沙盒</h1>
+      <p class="page-subtitle">启动一个交互式桌面沙盒，手动测试应用、调试验证器、验证任务配置。</p>
+      <div class="card config-card" style="max-width:400px">
+        <h3 class="section-title teal">沙盒配置</h3>
+        <div class="form-grid">
+          <label>应用:</label><select id="sandbox-app"><option value="">(不指定应用)</option></select>
+          <label>后端:</label><select id="sandbox-backend"><option>e2b</option><option>docker</option></select>
+          <label>超时时间:</label><input type="number" id="sandbox-timeout" value="3600" min="60">
+        </div>
+      </div>
+      <div class="btn-row">
+        <button class="btn success" onclick="Sandbox.launch()">启动沙盒</button>
+        <button class="btn danger" onclick="Sandbox.stop()">关闭沙盒</button>
+      </div>
+      <div class="log-box" id="sandbox-log"></div>
+    </section>
+
+    <!-- ===== Cleanup ===== -->
+    <section id="page-cleanup" class="page">
+      <h1 class="page-title">资源清理</h1>
+      <p class="page-subtitle">清理评估过程中残留的 Docker 容器和 E2B 沙盒实例，释放系统资源。</p>
+      <div class="config-grid">
+        <div class="card config-card">
+          <h3 class="section-title danger">Docker 容器清理</h3>
+          <label class="checkbox-label"><input type="checkbox" id="cleanup-docker-force"> 强制清理（不确认）</label>
+          <div class="btn-row mt-8">
+            <button class="btn secondary" onclick="Cleanup.run('docker_list')">列出容器</button>
+            <button class="btn danger" onclick="Cleanup.run('docker_clean')">清理容器</button>
+          </div>
+        </div>
+        <div class="card config-card">
+          <h3 class="section-title danger">E2B 沙盒清理</h3>
+          <label class="checkbox-label"><input type="checkbox" id="cleanup-e2b-force"> 强制清理（不确认）</label>
+          <div class="btn-row mt-8">
+            <button class="btn secondary" onclick="Cleanup.run('e2b_list')">列出沙盒</button>
+            <button class="btn danger" onclick="Cleanup.run('e2b_clean')">清理沙盒</button>
+          </div>
+        </div>
+      </div>
+      <div class="log-box" id="cleanup-log"></div>
+    </section>
+
+  </main>
+</div>
+
+<script src="/static/app.js"></script>
+</body>
+</html>
