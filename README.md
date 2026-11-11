@@ -7,6 +7,8 @@
   OpenComputer — Verifiable Software Worlds for Computer-Use Agents
 </h1>
 
+<p align="center"><b>English</b> · <a href="README.zh-CN.md">简体中文</a></p>
+
 <p align="center">
   <strong>Infinite Synthetic Environments for Computer-Use Agent Training and Evaluation</strong>
 </p>
@@ -155,6 +157,43 @@ Trajectories, screenshots, and `report.json` land in `evaluation/runs/<run_id>/`
 
 ---
 
+## Dashboard & Screenshots
+
+A local web dashboard (`dashboard/server.py`, Flask) shows every app's pipeline status — verifier endpoints, smoke runs, generated tasks and repair runs — and benchmark results from `evaluation/runs/`. It reads the repository directly, so it works without any API key; launching sandboxes from it needs the backend keys above.
+
+```bash
+pip install flask          # the dashboard's only extra dependency (not in requirements.txt)
+python dashboard/server.py --port 5111   # then open http://127.0.0.1:5111
+```
+
+The screenshots below were taken from this dashboard running on a fresh clone of the repository (no runs yet):
+
+| Verifier endpoints (`audacity`, 49 `check-*` endpoints) | Generated tasks (`libreoffice_calc`) |
+| --- | --- |
+| ![Verifier stage](docs/screenshots/dashboard-verifier.png) | ![Tasks stage](docs/screenshots/dashboard-tasks.png) |
+
+| Benchmark view |
+| --- |
+| ![Benchmark view](docs/screenshots/dashboard-benchmark.png) |
+
+---
+
+## Project Structure
+
+```
+agents/            GUI agent implementations + registry (Claude, ChatGPT, Gemini, Kimi, Qwen, GUI-Owl, EvoCUA, …)
+computer_env/      sandbox backends (E2B, Docker, remote_docker) and provisioning scripts (AWS, Tencent Cloud)
+verifiers/         one module per app exposing `check-*` CLI endpoints over live app state
+smoke/             smoke loop: exercises verifier endpoints with a real agent and repairs bugs
+task_generator/    task proposal, scoring, verifier matching, env-file synthesis; finalized tasks in tasks/
+evaluation/        run_eval.py harness, runtime, LLM judge, repair loop
+dashboard/         local Flask dashboard (server.py + static/)
+docs/              project website, logos, README screenshots
+CLAUDE.md          canonical end-to-end guide for coding agents
+```
+
+---
+
 ## Supported agents
 
 The agent registry (`agents/registry.py`) maps friendly aliases to agent classes and sensible defaults. Pass any alias to `--model`.
@@ -168,6 +207,7 @@ The agent registry (`agents/registry.py`) maps friendly aliases to agent classes
 | **Qwen** (DashScope / OpenAI-compatible) | `qwen3-vl`, `qwen2.5-vl-72b`, `qwen3.5-35b-a3b`, `qwen3.5-27b`, `qwen3.5-9b`, `qwen3.5-4b` |
 | **GUI-Owl** | `owl1.5`, `gui-owl-1.5` |
 | **EvoCUA** | `evocua-s1`, `evocua-s2` |
+| **Holo** (H Company) | `holo-3.1`, `Hcompany/Holo-3.1-35B-A3B` |
 | **Specialised CUA models** | `mano`, `opencua`, `dart` |
 
 `python evaluation/run_eval.py --list-models` enumerates everything currently registered. Unknown model IDs are routed by family heuristics (any name containing `claude`, `kimi`, `qwen`, `gemini`, `gpt-`, etc.) so you can also pass full vendor model IDs directly.
@@ -199,7 +239,7 @@ Backend-specific and operator-facing settings are documented in:
 
 ## Extending OpenComputer
 
-- **New app** or **more tasks for an existing app** → see [Synthesizing your own environment](#synthesizing-your-own-environment) above.
+- **New app** or **more tasks for an existing app** → see [Synthesis Quick start](#synthesis-quick-start) above.
 - **New agent** → subclass `agents/base.py:BaseAgent`, parse the model's output into pyautogui code strings (or the special `DONE` / `FAIL` / `WAIT` tokens), and register the alias in `agents/registry.py`. Unknown model IDs are routed by family heuristics, so any name containing `claude`, `kimi`, `qwen`, `gemini`, `gpt-`, etc. will pick up the right agent class even without an explicit registry entry.
 - **New backend** → drop a runtime adapter under `computer_env/backends/<name>/` implementing `BaseComputerEnvironment`, register it in `computer_env/factory.py`, and add a `--env-backend <name>` branch in `evaluation/run_eval.py`.
 
