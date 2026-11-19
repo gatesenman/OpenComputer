@@ -26,7 +26,7 @@ app = Flask(
     template_folder=str(APP_DIR / "templates"),
     static_folder=str(APP_DIR / "static"),
 )
-app.config["SECRET_KEY"] = "opencomputer-desktop"
+app.config["SECRET_KEY"] = os.environ.get("OPENCOMPUTER_SECRET_KEY") or os.urandom(32)
 
 # ── Process manager ──
 _processes = {}
