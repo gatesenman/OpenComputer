@@ -33,6 +33,15 @@ We present **OpenComputer**, a verifier-grounded framework for constructing veri
 
 ---
 
+
+## Demo world (WebUI, no PyQt5)
+
+The WebUI serves a bundled demo world at `/api/demo-world` and shows it on the 演示世界 page. A native PyQt5 window is not required.
+
+![OpenComputer WebUI dashboard](docs/screenshots/webui-dashboard.png)
+
+![Demo world pack in the WebUI](docs/screenshots/webui-demo-world.png)
+
 ## Demo world (WebUI, no PyQt5)
 
 The Flask WebUI can serve a bundled starter desk without opening the native window:
