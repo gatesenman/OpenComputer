@@ -60,3 +60,12 @@ def test_secret_key_is_not_hardcoded() -> None:
     text = source.read_text(encoding="utf-8")
     assert "OPENCOMPUTER_SECRET_KEY" in text
     assert 'SECRET_KEY"] = "opencomputer-desktop"' not in text
+
+
+def test_focus_and_placeholder_contrast() -> None:
+    css = (Path(__file__).resolve().parent / "static" / "style.css").read_text(encoding="utf-8")
+    assert "input:focus-visible" in css
+    assert ".btn:focus-visible" in css
+    assert ".nav-item:focus-visible" in css
+    assert "input::placeholder { color: #6b778a; }" in css
+    assert "input::placeholder { color: #a8b2c0; }" not in css
