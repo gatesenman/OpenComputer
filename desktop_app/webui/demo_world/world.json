@@ -1,0 +1,18 @@
+{
+  "kind": "opencomputer-demo-world",
+  "version": 1,
+  "title": "Office starter desk",
+  "description": "A tiny demo world that the WebUI can serve without PyQt5 or a live desktop window.",
+  "rooms": [
+    {
+      "id": "desk",
+      "name": "Starter desk",
+      "apps": ["files", "browser", "terminal"],
+      "task": "Open the briefing note and highlight the due date."
+    }
+  ],
+  "entities": [
+    {"id": "note-briefing", "type": "file", "name": "briefing.txt", "text": "The quarterly review is due on Friday."},
+    {"id": "calendar", "type": "app", "name": "Calendar", "hint": "Friday is marked busy."}
+  ]
+}

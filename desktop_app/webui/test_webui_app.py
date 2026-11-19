@@ -69,3 +69,21 @@ def test_focus_and_placeholder_contrast() -> None:
     assert ".nav-item:focus-visible" in css
     assert "input::placeholder { color: #6b778a; }" in css
     assert "input::placeholder { color: #a8b2c0; }" not in css
+
+
+def test_demo_world_endpoint_serves_bundled_pack(client) -> None:
+    response = client.get("/api/demo-world")
+    assert response.status_code == 200
+    data = response.get_json()
+    assert data["kind"] == "opencomputer-demo-world"
+    assert data["rooms"]
+    assert data["entities"]
+    assert any(e.get("id") == "note-briefing" for e in data["entities"])
+
+
+def test_demo_world_file_is_valid_json() -> None:
+    from app import load_demo_world
+
+    world = load_demo_world()
+    assert world["version"] == 1
+    assert world["title"]

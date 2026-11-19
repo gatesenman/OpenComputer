@@ -33,6 +33,19 @@ We present **OpenComputer**, a verifier-grounded framework for constructing veri
 
 ---
 
+## Demo world (WebUI, no PyQt5)
+
+The Flask WebUI can serve a bundled starter desk without opening the native window:
+
+```bash
+python launch_webui.py
+# then GET /api/demo-world
+```
+
+```bash
+python -m pytest desktop_app/webui/test_webui_app.py
+```
+
 ## Why "synthetic"
 
 Hand-authored GUI benchmarks don't scale — every task needs a unique workbook, project file, or screen state, and every task needs a verifier that knows where to look. `OpenComputer` automates both sides:
