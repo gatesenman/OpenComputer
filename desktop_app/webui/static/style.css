@@ -203,8 +203,13 @@ input:focus, select:focus, textarea:focus {
   border-color: #00b894;
   background: #fafbff;
 }
+input:focus-visible, select:focus-visible, textarea:focus-visible,
+.btn:focus-visible, .nav-item:focus-visible {
+  outline: 2px solid #00b894;
+  outline-offset: 2px;
+}
 input:hover, select:hover { border-color: #c0c8d8; }
-input::placeholder { color: #a8b2c0; }
+input::placeholder { color: #6b778a; }
 
 .form-grid {
   display: grid;
