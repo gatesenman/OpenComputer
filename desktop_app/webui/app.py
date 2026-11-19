@@ -187,6 +187,14 @@ def _list_smoke_runs(app_name=None):
 
 # ── Routes ──
 
+
+DEMO_WORLD_PATH = Path(__file__).resolve().parent / "demo_world" / "world.json"
+
+
+def load_demo_world() -> dict:
+    return json.loads(DEMO_WORLD_PATH.read_text(encoding="utf-8"))
+
+
 @app.route("/")
 def index():
     return render_template("index.html")
@@ -211,6 +219,12 @@ def api_dashboard():
 
 
 # ── API: Setup ──
+
+@app.route("/api/demo-world")
+def demo_world():
+    """Serve the bundled demo world pack without a native window."""
+    return jsonify(load_demo_world())
+
 
 @app.route("/api/setup/status")
 def api_setup_status():

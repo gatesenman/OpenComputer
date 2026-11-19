@@ -672,3 +672,30 @@ const Cleanup = {
     pollProcess(r.proc_id, 'cleanup-log');
   }
 };
+
+// ══════════════════════════════════════════
+// Demo world pack (no native window required)
+// ══════════════════════════════════════════
+initOnce('demo', async () => {
+  const root = $('#demo-world');
+  try {
+    const world = await api('demo-world');
+    const rooms = (world.rooms || []).map(room => {
+      const apps = (room.apps || []).join(', ');
+      return `<li><strong>${room.name || room.id}</strong>${room.task ? ' — ' + room.task : ''}${apps ? ' (' + apps + ')' : ''}</li>`;
+    }).join('');
+    const entities = (world.entities || []).map(ent => {
+      const extra = ent.text || ent.hint || '';
+      return `<li><strong>${ent.name || ent.id}</strong> (${ent.type || 'entity'})${extra ? ': ' + extra : ''}</li>`;
+    }).join('');
+    root.innerHTML = `
+      <h2>${world.title || 'Demo world'}</h2>
+      <p>${world.description || ''}</p>
+      <h3>Rooms</h3>
+      <ul>${rooms || '<li>None</li>'}</ul>
+      <h3>Entities</h3>
+      <ul>${entities || '<li>None</li>'}</ul>`;
+  } catch (err) {
+    root.textContent = 'Failed to load demo world.';
+  }
+});
