@@ -61,3 +61,12 @@ dashboard/static/demo_recording.webm
 training/
 # log files
 *.log
+
+# Additional hygiene
+.env.*.local
+target/
+dist/
+logs/
+coverage/
+!.env.example
+!.env.example.*

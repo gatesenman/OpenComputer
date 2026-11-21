@@ -1,3 +1,7 @@
+> **说明 / Note.** 本仓库是 [OpenComputer](https://github.com/gatesenman/OpenComputer) 的公开副本（fork）。以下为上游 README，未改其结构与内容。安全报告请遵循本仓库的 [SECURITY.md](SECURITY.md)。
+>
+> This public repository is a fork of OpenComputer. The README below is the upstream document and is kept as-is. Please report vulnerabilities via [SECURITY.md](SECURITY.md).
+
 <h1 align="center">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset="docs/opencomputer-white.svg" />
